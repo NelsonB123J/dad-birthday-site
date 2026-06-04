@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday, Dad</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#080808;color:#f0ece4;font-family:'Inter',sans-serif;overflow-x:hidden}
+
+/* HERO */
+.hero{position:relative;height:100vh;min-height:600px;display:flex;align-items:flex-end;overflow:hidden}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;filter:brightness(0.55) contrast(1.1)}
+.hero-grain{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");opacity:0.4;pointer-events:none}
+.hero-vignette{position:absolute;inset:0;background:radial-gradient(ellipse at center, transparent 30%, rgba(8,8,8,0.7) 100%);pointer-events:none}
+.hero-bottom-fade{position:absolute;bottom:0;left:0;right:0;height:280px;background:linear-gradient(to top, #080808 0%, transparent 100%);pointer-events:none}
+.hero-content{position:relative;z-index:2;padding:0 48px 64px;width:100%}
+.hero-eyebrow{font-size:11px;letter-spacing:0.4em;text-transform:uppercase;color:#C9A84C;margin-bottom:16px;opacity:0;animation:slideIn 0.8s ease 0.3s forwards}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(80px,18vw,200px);line-height:0.88;color:#f0ece4;letter-spacing:0.02em;opacity:0;animation:slideIn 0.9s ease 0.5s forwards}
+.hero-title span{color:#C9A84C;display:block}
+.hero-sub{font-family:'DM Serif Display',serif;font-style:italic;font-size:clamp(16px,2.5vw,24px);color:rgba(240,236,228,0.6);margin-top:16px;opacity:0;animation:slideIn 0.8s ease 0.8s forwards}
+
+/* COUNTER STRIP */
+.counter-strip{display:grid;grid-template-columns:repeat(3,1fr);border-top:0.5px solid rgba(201,168,76,0.3);border-bottom:0.5px solid rgba(201,168,76,0.3)}
+.counter-item{padding:32px 24px;border-right:0.5px solid rgba(201,168,76,0.15);text-align:center}
+.counter-item:last-child{border-right:none}
+.counter-num{font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,8vw,80px);color:#C9A84C;line-height:1;display:block}
+.counter-lbl{font-size:10px;letter-spacing:0.35em;text-transform:uppercase;color:rgba(240,236,228,0.35);margin-top:4px}
+
+/* SECTION */
+.section{padding:80px 48px;max-width:900px;margin:0 auto}
+
+/* BIG QUOTE */
+.big-quote{padding:80px 48px;border-top:0.5px solid rgba(255,255,255,0.06);border-bottom:0.5px solid rgba(255,255,255,0.06);position:relative;overflow:hidden}
+.big-quote-bg{position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,0.05) 0%,transparent 60%);pointer-events:none}
+.quote-mark{font-family:'Bebas Neue',sans-serif;font-size:200px;color:rgba(201,168,76,0.08);line-height:0.7;position:absolute;top:24px;left:36px;pointer-events:none;user-select:none}
+.quote-text{font-family:'DM Serif Display',serif;font-style:italic;font-size:clamp(24px,4vw,44px);line-height:1.4;color:#f0ece4;position:relative;z-index:1;max-width:680px;margin:0 auto;text-align:center}
+.quote-attr{display:block;font-family:'Inter',sans-serif;font-style:normal;font-size:12px;letter-spacing:0.3em;text-transform:uppercase;color:#C9A84C;margin-top:28px;text-align:center}
+
+/* PHOTO GRID */
+.photo-section{padding:0 0 80px}
+.photo-label{font-size:11px;letter-spacing:0.35em;text-transform:uppercase;color:rgba(201,168,76,0.5);text-align:center;padding:0 48px 32px}
+.photo-grid{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:320px 320px;gap:4px;padding:0 4px}
+.photo-cell{overflow:hidden;position:relative}
+.photo-cell.tall{grid-row:1/3}
+.photo-cell img{width:100%;height:100%;object-fit:cover;object-position:center top;transition:transform 0.7s ease,filter 0.4s ease;filter:contrast(1.05)}
+.photo-cell:hover img{transform:scale(1.06);filter:contrast(1.1) brightness(1.05)}
+.photo-cell::after{content:'';position:absolute;inset:0;border:1px solid rgba(201,168,76,0.12);pointer-events:none}
+
+/* MESSAGE */
+.message-section{padding:80px 48px;max-width:720px;margin:0 auto;text-align:center}
+.msg-tag{font-size:11px;letter-spacing:0.35em;text-transform:uppercase;color:#C9A84C;opacity:0.6;margin-bottom:32px;display:block}
+.msg-body{font-size:clamp(18px,2.2vw,24px);line-height:1.9;color:rgba(240,236,228,0.8);font-weight:300}
+.msg-body strong{color:#E8D49A;font-weight:400}
+
+/* FINAL FRAME */
+.final{position:relative;height:60vh;min-height:400px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.final-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;filter:brightness(0.4) contrast(1.1)}
+.final-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,#080808 0%,transparent 30%,transparent 70%,#080808 100%)}
+.final-content{position:relative;z-index:2;text-align:center;padding:0 32px}
+.final-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,9vw,96px);letter-spacing:0.05em;color:#f0ece4;line-height:1}
+.final-title em{color:#C9A84C;font-style:normal}
+.final-sub{font-family:'DM Serif Display',serif;font-style:italic;font-size:clamp(14px,2vw,20px);color:rgba(240,236,228,0.5);margin-top:12px}
+
+/* FOOTER */
+.footer{padding:40px 48px;text-align:center;border-top:0.5px solid rgba(255,255,255,0.05)}
+.footer-text{font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:rgba(240,236,228,0.2)}
+
+@keyframes slideIn{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:600px){
+  .hero-content{padding:0 24px 48px}
+  .counter-strip{grid-template-columns:1fr}
+  .counter-item{border-right:none;border-bottom:0.5px solid rgba(201,168,76,0.15);padding:24px}
+  .counter-item:last-child{border-bottom:none}
+  .photo-grid{grid-template-columns:1fr;grid-template-rows:auto}
+  .photo-cell.tall{grid-row:auto}
+  .photo-cell{height:280px}
+  .section,.big-quote,.message-section{padding:60px 24px}
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <img class="hero-img" src="https://i.postimg.cc/J0LVrfv5/1669717627699.jpg" alt="Dad">
+  <div class="hero-grain"></div>
+  <div class="hero-vignette"></div>
+  <div class="hero-bottom-fade"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">A celebration of a legend</p>
+    <h1 class="hero-title">Happy<span>Birthday</span></h1>
+    <p class="hero-sub">To the man behind it all — our Dad.</p>
+  </div>
+</section>
+
+<!-- COUNTER -->
+<div class="counter-strip">
+  <div class="counter-item"><span class="counter-num">1</span><span class="counter-lbl">Of a kind</span></div>
+  <div class="counter-item"><span class="counter-num">∞</span><span class="counter-lbl">Love from us</span></div>
+  <div class="counter-item"><span class="counter-num">Today</span><span class="counter-lbl">All about you</span></div>
+</div>
+
+<!-- BIG QUOTE -->
+<div class="big-quote">
+  <div class="big-quote-bg"></div>
+  <div class="quote-mark">"</div>
+  <p class="quote-text">
+    "To the man who showed us what it means to live with strength, grace, and love — we are who we are because of you."
+    <span class="quote-attr">— Your family</span>
+  </p>
+</div>
+
+<!-- PHOTO GRID -->
+<div class="photo-section">
+  <p class="photo-label">The man himself</p>
+  <div class="photo-grid">
+    <div class="photo-cell tall"><img src="https://i.postimg.cc/1t61ZmCD/1669448352427.jpg" alt="Dad"></div>
+    <div class="photo-cell"><img src="https://i.postimg.cc/fyNnzGpg/1669448355556.jpg" alt="Dad"></div>
+    <div class="photo-cell"><img src="https://i.postimg.cc/XqbSjRm1/1669448386305.jpg" alt="Dad"></div>
+  </div>
+</div>
+
+<!-- MESSAGE -->
+<div class="message-section">
+  <span class="msg-tag">From us, to you</span>
+  <p class="msg-body">
+    You have given us more than we could ever repay —
+    your <strong>strength</strong>, your <strong>wisdom</strong>,
+    your steady presence through every season of life.
+    On this day, we simply want you to know how deeply
+    <strong>loved and celebrated</strong> you truly are.
+  </p>
+</div>
+
+<!-- FINAL FRAME -->
+<div class="final">
+  <img class="final-img" src="https://i.postimg.cc/J0LVrfv5/1669717627699.jpg" alt="Dad">
+  <div class="final-overlay"></div>
+  <div class="final-content">
+    <p class="final-title">Here's To <em>You,</em> Dad</p>
+    <p class="final-sub">Today and every day after.</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p class="footer-text">With all our love &nbsp;✦&nbsp; Always</p>
+</footer>
+
+</body>
+</html>
